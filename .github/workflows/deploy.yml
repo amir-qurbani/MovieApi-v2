@@ -1,0 +1,26 @@
+name: Deploy Movie API to Azure
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      #Step 1: Hämta koden från repot
+      - uses: actions/checkout@v2
+      #Step 2: Installera .NET 9
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      #Steg 3: Bygg appen
+      - name: Build
+        run: dotnet publish MovieApi_v2.csproj -c Release -o ./publish
+      #Steg 4: Deploya till Azure
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: movieapi-amir-2026
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish
