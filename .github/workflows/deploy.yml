@@ -16,7 +16,7 @@ jobs:
           dotnet-version: '9.0.x'
       #Steg 3: Bygg appen
       - name: Build
-        run: dotnet publish MovieApi_v2.csproj -c Release -o ./publish
+        run: dotnet publish MovieApi-v2.csproj -c Release -o ./publish
       #Steg 4: Deploya till Azure
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v3
